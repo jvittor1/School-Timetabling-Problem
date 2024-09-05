@@ -1,0 +1,395 @@
+[
+  {
+    "course": "CCO",
+    "name": "Fundamentos de Programação",
+    "semester": 1,
+    "code": "XDES01",
+    "ch": 4,
+    "teacher": "Prof 12"
+  },
+  {
+    "course": "CCO",
+    "name": "Arquitetura de Computadores I",
+    "semester": 1,
+    "code": "CRSC03",
+    "ch": 4,
+    "teacher": "Prof 13"
+  },
+  {
+    "course": "CCO",
+    "name": "Matemática Discreta",
+    "semester": 1,
+    "code": "XMAC01",
+    "ch": 4,
+    "teacher": "Prof 5"
+  },
+  {
+    "course": "CCO",
+    "name": "Projeto Integrado",
+    "semester": 1,
+    "code": "CAHC04",
+    "ch": 2,
+    "teacher": "Prof 16"
+  },
+  {
+    "course": "CCO",
+    "name": "Programação Orientada a Objetos",
+    "semester": 3,
+    "code": "XDES02",
+    "ch": 4,
+    "teacher": "Prof 9"
+  },
+  {
+    "course": "CCO",
+    "name": "Engenharia de Software I",
+    "semester": 3,
+    "code": "XDES04",
+    "ch": 4,
+    "teacher": "Prof 1"
+  },
+  {
+    "course": "CCO",
+    "name": "Sistemas Operacionais",
+    "semester": 3,
+    "code": "CRSC02",
+    "ch": 4,
+    "teacher": "Prof 13"
+  },
+  {
+    "course": "CCO",
+    "name": "Algoritmos e Estrutura de Dados II",
+    "semester": 3,
+    "code": "CTCO02",
+    "ch": 4,
+    "teacher": "Prof 18"
+  },
+  {
+    "course": "CCO",
+    "name": "Métodos Matemáticos para Análise de Dados",
+    "semester": 3,
+    "code": "XMAC02",
+    "ch": 4,
+    "teacher": "Prof 9"
+  },
+  {
+    "course": "CCO",
+    "name": "Algoritmos em Grafos",
+    "semester": 3,
+    "code": "CMAC03",
+    "ch": 4,
+    "teacher": "Prof 16"
+  },
+  {
+    "course": "CCO",
+    "name": "Análise e Projeto de Algoritmos II",
+    "semester": 5,
+    "code": "CIC111",
+    "ch": 3,
+    "teacher": "Prof 14"
+  },
+  {
+    "course": "CCO",
+    "name": "Linguagens Formais e Autômatos",
+    "semester": 5,
+    "code": "CIC132",
+    "ch": 4,
+    "teacher": "Prof 5"
+  },
+  {
+    "course": "CCO",
+    "name": "Engenharia de Software II",
+    "semester": 5,
+    "code": "COM211",
+    "ch": 4,
+    "teacher": "Prof 11"
+  },
+  {
+    "course": "CCO",
+    "name": "Computação Orientada a Objetos II",
+    "semester": 5,
+    "code": "COM221",
+    "ch": 4,
+    "teacher": "Prof 10"
+  },
+  {
+    "course": "CCO",
+    "name": "Banco de Dados I",
+    "semester": 5,
+    "code": "COM230",
+    "ch": 4,
+    "teacher": "Prof 12"
+  },
+  {
+    "course": "CCO",
+    "name": "Redes de Computadores",
+    "semester": 5,
+    "code": "COM240",
+    "ch": 4,
+    "teacher": "Prof 4"
+  },
+  {
+    "course": "CCO",
+    "name": "Análise de Investimento em Informática",
+    "semester": 5,
+    "code": "COM311",
+    "ch": 3,
+    "teacher": "Prof 2"
+  },
+  {
+    "course": "CCO",
+    "name": "Processamento Digital de Imagens",
+    "semester": 7,
+    "code": "CIC271",
+    "ch": 4,
+    "teacher": "Prof 7"
+  },
+  {
+    "course": "CCO",
+    "name": "Gerência de Projeto de Software",
+    "semester": 7,
+    "code": "COM212",
+    "ch": 4,
+    "teacher": "Prof 1"
+  },
+  {
+    "course": "CCO",
+    "name": "Interação Humano-Computador",
+    "semester": 7,
+    "code": "COM213",
+    "ch": 4,
+    "teacher": "Prof 6"
+  },
+  {
+    "course": "CCO",
+    "name": "Desenvolvimento de Sistemas na Web",
+    "semester": 7,
+    "code": "COM222",
+    "ch": 5,
+    "teacher": "Prof 15"
+  },
+  {
+    "course": "CCO",
+    "name": "Sistemas Distribuídos",
+    "semester": 7,
+    "code": "COM242",
+    "ch": 4,
+    "teacher": "Prof 16"
+  },
+  {
+    "course": "SIN",
+    "name": "Fundamentos de Programação",
+    "semester": 1,
+    "code": "XDES01",
+    "ch": 4,
+    "teacher": "Prof 15"
+  },
+
+  {
+    "course": "SIN",
+    "name": "Organização e Arquitetura de Computadores",
+    "semester": 3,
+    "code": "SRSC03",
+    "ch": 4,
+    "teacher": "Prof 11"
+  },
+  {
+    "course": "SIN",
+    "name": "Fundamentos de Lógica e Matemática Discre",
+    "semester": 3,
+    "code": "MAT017",
+    "ch": 4,
+    "teacher": "Prof 5"
+  },
+  {
+    "course": "SIN",
+    "name": "Computação Orientada a Objetos I",
+    "semester": 3,
+    "code": "COM220",
+    "ch": 4,
+    "teacher": "Prof 9"
+  },
+  {
+    "course": "SIN",
+    "name": "Sistemas Inteligentes",
+    "semester": 5,
+    "code": "SIN260",
+    "ch": 4,
+    "teacher": "Prof 7"
+  },
+  {
+    "course": "SIN",
+    "name": "Redes de Computadores",
+    "semester": 5,
+    "code": "COM240",
+    "ch": 4,
+    "teacher": "Prof 4"
+  },
+  {
+    "course": "SIN",
+    "name": "Linguagens Formais e Autômatos",
+    "semester": 5,
+    "code": "SIN132",
+    "ch": 4,
+    "teacher": "Prof 5"
+  },
+  {
+    "course": "SIN",
+    "name": "Banco de Dados II",
+    "semester": 5,
+    "code": "COM231",
+    "ch": 4,
+    "teacher": "Prof 18"
+  },
+  {
+    "course": "SIN",
+    "name": "Governança de TI",
+    "semester": 7,
+    "code": "SIN210",
+    "ch": 4,
+    "teacher": "Prof 8"
+  },
+  {
+    "course": "SIN",
+    "name": "Interação Humano-Computador",
+    "semester": 7,
+    "code": "COM213",
+    "ch": 4,
+    "teacher": "Prof 6"
+  },
+  {
+    "course": "SIN",
+    "name": "Desenvolvimento de Aplicações em SI",
+    "semester": 7,
+    "code": "SIN412",
+    "ch": 5,
+    "teacher": "Prof 10"
+  },
+  {
+    "course": "SIN",
+    "name": "Inteligência de Negócios",
+    "semester": 7,
+    "code": "SIN413",
+    "ch": 4,
+    "teacher": "Prof 8"
+  },
+  {
+    "course": "SIN",
+    "name": "Auditoria e Segurança de Sistemas de Inform",
+    "semester": 7,
+    "code": "SIN414",
+    "ch": 3,
+    "teacher": "Prof 4"
+  },
+  {
+    "course": "SIN",
+    "name": "Organização e Métodos",
+    "semester": 7,
+    "code": "SIN313",
+    "ch": 3,
+    "teacher": "Prof 2"
+  },
+  {
+    "course": "Outros Cursos",
+    "name": "Fundamentos de Programação (EMT)",
+    "semester": 1,
+    "code": "CCO016",
+    "ch": 4,
+    "teacher": "Prof 3"
+  },
+  {
+    "course": "Outros Cursos",
+    "name": "Fundamentos de Programação (EME)",
+    "semester": 1,
+    "code": "CCO016",
+    "ch": 4,
+    "teacher": "Prof 3"
+  },
+  {
+    "course": "Outros Cursos",
+    "name": "Fundamentos de Programação (EBP / ECI)",
+    "semester": 1,
+    "code": "CCO016",
+    "ch": 4,
+    "teacher": "Prof 3"
+  },
+  {
+    "course": "Outros Cursos",
+    "name": "Fundamentos de Programação (MBA)",
+    "semester": 1,
+    "code": "CCO016",
+    "ch": 4,
+    "teacher": "Prof 11"
+  },
+  {
+    "course": "Outros Cursos",
+    "name": "Fundamentos de Programação (EMA / EEN)",
+    "semester": 1,
+    "code": "CCO016",
+    "ch": 4,
+    "teacher": "Prof 3"
+  },
+  {
+    "course": "Optativas",
+    "name": "Metaheurísticas para Problemas de Otimizaç",
+    "semester": 3,
+    "code": "OPT1",
+    "ch": 4,
+    "teacher": "Prof 17"
+  },
+  {
+    "course": "Optativas",
+    "name": "Redes Complexas",
+    "semester": 3,
+    "code": "OPT2",
+    "ch": 4,
+    "teacher": "Prof 18"
+  },
+  {
+    "course": "Optativas",
+    "name": "Cloud Computing",
+    "semester": 5,
+    "code": "OPT3",
+    "ch": 4,
+    "teacher": "Prof 1"
+  },
+  {
+    "course": "Optativas",
+    "name": "Tópicos em Ciência de Dados",
+    "semester": 3,
+    "code": "OPT4",
+    "ch": 4,
+    "teacher": "Prof 7"
+  },
+  {
+    "course": "Pós- Graduação",
+    "name": "Design Patterns",
+    "semester": 3,
+    "code": "POS1",
+    "ch": 4,
+    "teacher": "Prof 14"
+  },
+  {
+    "course": "Pós- Graduação",
+    "name": "Visualização da Informação",
+    "semester": 4,
+    "code": "POS2",
+    "ch": 4,
+    "teacher": "Prof 13"
+  },
+  {
+    "course": "Pós- Graduação",
+    "name": "Visão Computacional",
+    "semester": 5,
+    "code": "POS3",
+    "ch": 4,
+    "teacher": "Prof 12"
+  },
+  {
+    "course": "Pós- Graduação",
+    "name": "Robótica",
+    "semester": 5,
+    "code": "POS5",
+    "ch": 4,
+    "teacher": "Prof 6"
+  }
+]
