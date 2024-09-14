@@ -2,9 +2,9 @@ from utils.json import read_json_data
 from models.discipline import Discipline
 from models.graph import Graph
 from utils.format import format_schedule
+from utils.color_assignment import color_function
 import networkx as nx
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 def get_most_teacher_classes(graph: Graph):
@@ -193,54 +193,28 @@ def generate_graph(data: list):
         graph.add_node(discipline)
 
     graph = generate_edge(graph)
-    print(f"Total classes: {count}")
+    # print(f"Total classes: {count}")
     return graph
 
 
-def plot_graph(graph: Graph):
-    # Função para comparar dois conjuntos de horários
-    def are_schedules_equal(schedule1, schedule2):
-        set1 = set(schedule1.split())
-        set2 = set(schedule2.split())
-        return set1.issubset(set2) or set2.issubset(set1)
+def plot_graph(graph):
 
-    # Inicializar um dicionário para os grupos de cores
     color_map = {}
 
-    # Iterar sobre os vértices para colorir
     for node in graph.graph.nodes:
         discipline = graph.graph.nodes[node]["discipline"]
-        schedule = discipline.schedule
 
-        # Atribuir uma cor ao nó que não conflite com vizinhos
-        assigned_color = None
-        neighbor_colors = {
-            color_map[neighbor]
-            for neighbor in graph.graph.neighbors(node)
-            if neighbor in color_map
-        }
+        if not discipline.schedule:
+            color_map[node] = "gray"
+        else:
+            color_map[node] = color_function(str(discipline.schedule))
 
-        # Encontrar uma cor disponível que não esteja em uso pelos vizinhos
-        for color in range(len(graph.graph.nodes)):
-            if color not in neighbor_colors:
-                assigned_color = color
-                break
+    colors = [color_map[node] for node in graph.graph.nodes]
 
-        color_map[node] = assigned_color
-
-    # Mapear cores para um colormap
-    unique_colors = list(set(color_map.values()))
-    color_palette = plt.cm.rainbow(np.linspace(0, 1, len(unique_colors)))
-    color_list = [
-        color_palette[unique_colors.index(color_map[node])]
-        for node in graph.graph.nodes
-    ]
-
-    # Plotar o grafo
     pos = nx.spring_layout(graph.graph)
-    nx.draw(
-        graph.graph, pos, node_color=color_list, with_labels=True, font_weight="bold"
-    )
+
+    nx.draw(graph.graph, pos, node_color=colors, with_labels=True)
+
     plt.show()
 
 
@@ -250,8 +224,8 @@ def main():
     graph = define_weight(graph)
     graph = generate_schedule(graph)
     format_schedule(graph)
-    # plot_graph(graph)
-    graph.print_disciplines()
+    plot_graph(graph)
+    # graph.print_disciplines()
 
 
 if __name__ == "__main__":
