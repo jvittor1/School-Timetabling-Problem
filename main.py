@@ -40,16 +40,16 @@ def get_most_heavy_semester(graph: Graph):
 
 
 def define_weight(graph: Graph):
-    def sin_discipline(discipline):
+    def sin_discipline(discipline: Discipline):
         return discipline.course.lower() == "sin"
 
-    def cco_discipline(discipline):
+    def cco_discipline(discipline: Discipline):
         return discipline.course.lower() == "cco"
 
-    def most_teacher_classes(discipline):
+    def most_teacher_classes(discipline: Discipline):
         return discipline.teacher in get_most_teacher_classes(graph)
 
-    def most_heavy_semester(discipline):
+    def most_heavy_semester(discipline: Discipline):
         return discipline.semester in get_most_heavy_semester(graph)
 
     for node in graph.graph.nodes:
@@ -197,7 +197,7 @@ def generate_graph(data: list):
     return graph
 
 
-def plot_graph(graph):
+def plot_graph(graph: Graph):
 
     color_map = {}
 
@@ -224,8 +224,8 @@ def main():
     graph = define_weight(graph)
     graph = generate_schedule(graph)
     format_schedule(graph)
-    plot_graph(graph)
-    # graph.print_disciplines()
+    # plot_graph(graph)
+    graph.print_disciplines()
 
 
 if __name__ == "__main__":
