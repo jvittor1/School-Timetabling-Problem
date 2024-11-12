@@ -69,18 +69,13 @@ def define_weight(graph: Graph):
     return graph
 
 
-def available_schedule(slots: list, slot: int, discipline: Discipline):
+def available_schedule(graph: Graph, slots: list, slot: int, discipline: Discipline):
+    # Verifica se há arestas entre as disciplinas deste horário (conflito professor ou semestre e curso)
     for existing_discipline in slots[slot]:
-        if existing_discipline["teacher"] == discipline.teacher:
+        if graph.graph.has_edge(discipline.index, existing_discipline["index"]):
             return False
 
-    for existing_discipline in slots[slot]:
-        if (
-            discipline.semester == existing_discipline["semester"]
-            and discipline.course == existing_discipline["course"]
-        ):
-            return False
-
+    # Verifica o limite de aulas de uma disciplina por dia
     count = 0
     for day_slots in slots:
         for existing_discipline in day_slots:
@@ -93,6 +88,7 @@ def available_schedule(slots: list, slot: int, discipline: Discipline):
             if count >= 3 and discipline.ch == 5:
                 return False
 
+    # Verifica o limite de aulas de um professor por dia (MAX 6)
     count = 0
     for day_slots in slots:
         for existing_discipline in day_slots:
@@ -130,7 +126,7 @@ def generate_schedule(graph: Graph):
                         if day == "Saturday" and not is_saturday_course(discipline):
                             continue
 
-                        if available_schedule(slots, slot, discipline):
+                        if available_schedule(graph, slots, slot, discipline):
                             slots[slot].append(
                                 {
                                     "name": discipline.name,
@@ -193,7 +189,7 @@ def generate_graph(data: list):
         graph.add_node(discipline)
 
     graph = generate_edge(graph)
-    # print(f"Total classes: {count}")
+    print(f"Total classes: {count}")
     return graph
 
 
@@ -225,7 +221,8 @@ def main():
     graph = generate_schedule(graph)
     format_schedule(graph)
     # plot_graph(graph)
-    graph.print_disciplines()
+    # graph.print_disciplines()
+    graph.schedules.print_schedule()
 
 
 if __name__ == "__main__":

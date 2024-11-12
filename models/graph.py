@@ -28,7 +28,12 @@ class Graph:
     def order_by_weight(self):
         nodes_sorted_by_weight = sorted(
             self.graph.nodes,
-            key=lambda x: self.graph.nodes[x]["discipline"].weight,
+            key=lambda x: (
+                self.graph.nodes[x]["discipline"].weight
+                and len(list(self.graph.neighbors(x)))
+                if len(list(self.graph.neighbors(x))) > 0
+                else 0
+            ),
             reverse=True,
         )
         return nodes_sorted_by_weight

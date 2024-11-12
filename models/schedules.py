@@ -17,3 +17,11 @@ class Schedules:
             {"friday": self.friday},
             {"saturday": self.saturday},
         ]
+
+    def print_schedule(self):
+        for day_schedule in self.get_schedule():
+            for day, slots in day_schedule.items():
+                print(day)
+                for slot in slots:
+                    print(slot)
+                print("\n")
