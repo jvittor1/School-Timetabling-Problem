@@ -69,13 +69,19 @@ def define_weight(graph: Graph):
     return graph
 
 
-def available_schedule(graph: Graph, slots: list, slot: int, discipline: Discipline):
-    # Verifica se há arestas entre as disciplinas deste horário (conflito professor ou semestre e curso)
+def evaluate_schedule_score(
+    graph: Graph, slots: list, slot: int, discipline: Discipline
+):
+    score = 0
+
+    # **Penalidades**
+
+    # Penaliza por conflito de professor ou semestre/curso
     for existing_discipline in slots[slot]:
         if graph.graph.has_edge(discipline.index, existing_discipline["index"]):
-            return False
+            score -= 5  # Penalidade para conflito
 
-    # Verifica quantidade de aulas de um curso de determinado semestre em um dia
+    # Penaliza se já houverem 8 ou mais aulas do curso no semestre naquele dia
     count = 0
     for day_slots in slots:
         for existing_discipline in day_slots:
@@ -85,10 +91,10 @@ def available_schedule(graph: Graph, slots: list, slot: int, discipline: Discipl
             ):
                 count += 1
 
-            if count >= 8:
-                return False
+    if count >= 8:
+        score -= 3
 
-    # Verifica o limite de aulas de uma disciplina por dia
+    # Penaliza se a disciplina já tiver o limite de aulas por dia
     count = 0
     for day_slots in slots:
         for existing_discipline in day_slots:
@@ -96,12 +102,11 @@ def available_schedule(graph: Graph, slots: list, slot: int, discipline: Discipl
                 count += 1
 
             if count >= 2 and discipline.ch == 4:
-                return False
+                score -= 2
+            elif count >= 3 and discipline.ch == 5:
+                score -= 2
 
-            if count >= 3 and discipline.ch == 5:
-                return False
-
-    # Verifica o limite de aulas de um professor por dia (MAX 6)
+    # Penaliza se o professor tiver mais de 6 aulas no dia
     count = 0
     for day_slots in slots:
         for existing_discipline in day_slots:
@@ -109,13 +114,40 @@ def available_schedule(graph: Graph, slots: list, slot: int, discipline: Discipl
                 count += 1
 
             if count >= 6:
-                return False
+                score -= 2
 
-    # Verifica limite maximo de aulas por slot (MAX 8)
+    # Penaliza se o slot já tiver o limite máximo de disciplinas (8)
     if len(slots[slot]) >= 8:
-        return False
+        score -= 3
 
-    return True
+    # **Benefícios**
+
+    # Adiciona pontos para slot vazio
+    if len(slots[slot]) == 0:
+        score += 3
+
+    # Adiciona pontos para continuidade de horário (se disciplina requer mais de uma aula seguida)
+    if discipline.ch > 2:
+        if slot > 0 and any(
+            discipline_in_slot["index"] == discipline.index
+            for discipline_in_slot in slots[slot - 1]
+        ):
+            score += 2  # Aula anterior no mesmo horário, positivo para continuidade
+        if slot < len(slots) - 1 and any(
+            discipline_in_slot["index"] == discipline.index
+            for discipline_in_slot in slots[slot + 1]
+        ):
+            score += 2  # Aula seguinte no mesmo horário, positivo para continuidade
+
+    # Adiciona pontos para distribuição balanceada de aulas por professor
+    if count < 5:
+        score += 2  # Professor com menos de 5 aulas no dia é positivo
+
+    # Adiciona pontos para slots que ajudam a distribuir o curso e semestre de forma balanceada na semana
+    if count < 5:
+        score += 1  # Distribuição balanceada de aulas para o curso
+
+    return score
 
 
 def is_night_period(discipline: Discipline, slot: int):
@@ -129,49 +161,52 @@ def is_saturday_course(discipline: Discipline):
 def generate_schedule(graph: Graph):
     for node in graph.order_by_weight():
         discipline = graph.graph.nodes[node]["discipline"]
-        allocated_slots = 0
-        while allocated_slots < discipline.ch:
+        slots_needed = discipline.ch
+
+        # Loop até alocar todos os slots necessários para a carga horária
+        while slots_needed > 0:
+            best_slot_sequence = None
+            best_score = float("-inf")
+
             for day_schedule in graph.schedules.get_schedule():
                 for day, slots in day_schedule.items():
                     for slot in range(len(slots)):
 
+                        # Verifica restrições de horários
                         if discipline.course.lower() == "sin" and not is_night_period(
                             discipline, slot
                         ):
                             continue
-
                         if day == "Saturday" and not is_saturday_course(discipline):
                             continue
 
-                        if available_schedule(graph, slots, slot, discipline):
-                            slots[slot].append(
-                                {
-                                    "name": discipline.name,
-                                    "code": discipline.code,
-                                    "teacher": discipline.teacher,
-                                    "course": discipline.course,
-                                    "semester": discipline.semester,
-                                    "ch": discipline.ch,
-                                    "index": discipline.index,
-                                }
-                            )
-                            discipline.add_schedule({day: slot})
-                            allocated_slots += 1
+                        # Avalia o slot atual e calcula a pontuação
+                        score = evaluate_schedule_score(graph, slots, slot, discipline)
 
-                        if allocated_slots >= discipline.ch:
-                            break
+                        # Se a pontuação é a melhor até agora, salva o slot
+                        if score > best_score:
+                            best_score = score
+                            best_slot_sequence = (day, slots, slot)
 
-                    if allocated_slots >= discipline.ch:
-                        break
-
-                if allocated_slots >= discipline.ch:
-                    break
-
-        if allocated_slots < discipline.ch:
-            print(
-                f"Não foi possível alocar a disciplina {discipline.name} ({discipline.code})"
-            )
-
+            # Aloca o slot se encontrou uma posição adequada
+            if best_slot_sequence and best_score > 0:
+                day, slots, slot = best_slot_sequence
+                slots[slot].append(
+                    {
+                        "name": discipline.name,
+                        "code": discipline.code,
+                        "teacher": discipline.teacher,
+                        "course": discipline.course,
+                        "semester": discipline.semester,
+                        "ch": discipline.ch,
+                        "index": discipline.index,
+                    }
+                )
+                discipline.add_schedule({day: slot})
+                slots_needed -= 1
+            else:
+                # Se não há slots disponíveis para a disciplina, interrompe o loop
+                break
     return graph
 
 
