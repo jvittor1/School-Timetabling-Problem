@@ -102,9 +102,9 @@ def evaluate_schedule_score(
                 count += 1
 
             if count >= 2 and discipline.ch == 4:
-                score -= 2
+                score -= 4
             elif count >= 3 and discipline.ch == 5:
-                score -= 2
+                score -= 4
 
     # Penaliza se o professor tiver mais de 6 aulas no dia
     count = 0
