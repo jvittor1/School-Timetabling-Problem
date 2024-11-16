@@ -70,16 +70,19 @@ def define_weight(graph: Graph):
 
 
 def evaluate_schedule_score(
-    graph: Graph, slots: list, slot: int, discipline: Discipline
+    graph: Graph, slots: list, slot: int, discipline: Discipline, day: str
 ):
     score = 0
 
     # **Penalidades**
 
+    if day.lower() == "saturday" and discipline.course.lower() in ["sin", "cco"]:
+        return float("-inf")
+
     # Penaliza por conflito de professor ou semestre/curso
     for existing_discipline in slots[slot]:
         if graph.graph.has_edge(discipline.index, existing_discipline["index"]):
-            score -= 5  # Penalidade para conflito
+            score -= 5
 
     # Penaliza se já houverem 8 ou mais aulas do curso no semestre naquele dia
     count = 0
@@ -102,9 +105,9 @@ def evaluate_schedule_score(
                 count += 1
 
             if count >= 2 and discipline.ch == 4:
-                score -= 4
+                score -= 8
             elif count >= 3 and discipline.ch == 5:
-                score -= 4
+                score -= 8
 
     # Penaliza se o professor tiver mais de 6 aulas no dia
     count = 0
@@ -132,30 +135,26 @@ def evaluate_schedule_score(
             discipline_in_slot["index"] == discipline.index
             for discipline_in_slot in slots[slot - 1]
         ):
-            score += 2  # Aula anterior no mesmo horário, positivo para continuidade
+            score += 6
         if slot < len(slots) - 1 and any(
             discipline_in_slot["index"] == discipline.index
             for discipline_in_slot in slots[slot + 1]
         ):
-            score += 2  # Aula seguinte no mesmo horário, positivo para continuidade
+            score += 6
 
-    # Adiciona pontos para distribuição balanceada de aulas por professor
+    # Adiciona pontos para distribuição balanceada de aulas por professor no dia (menos de 5 aulas)
     if count < 5:
-        score += 2  # Professor com menos de 5 aulas no dia é positivo
+        score += 2
 
     # Adiciona pontos para slots que ajudam a distribuir o curso e semestre de forma balanceada na semana
     if count < 5:
-        score += 1  # Distribuição balanceada de aulas para o curso
+        score += 1
 
     return score
 
 
 def is_night_period(discipline: Discipline, slot: int):
     return discipline.course.lower() == "sin" and slot >= 10
-
-
-def is_saturday_course(discipline: Discipline):
-    return discipline.course.lower() not in ["sin", "cco"]
 
 
 def generate_schedule(graph: Graph):
@@ -177,11 +176,11 @@ def generate_schedule(graph: Graph):
                             discipline, slot
                         ):
                             continue
-                        if day == "Saturday" and not is_saturday_course(discipline):
-                            continue
 
                         # Avalia o slot atual e calcula a pontuação
-                        score = evaluate_schedule_score(graph, slots, slot, discipline)
+                        score = evaluate_schedule_score(
+                            graph, slots, slot, discipline, day
+                        )
 
                         # Se a pontuação é a melhor até agora, salva o slot
                         if score > best_score:
